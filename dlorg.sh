@@ -2,6 +2,16 @@
 
 DOWNLOADS="$HOME/Downloads"
 
+make_directories() {
+	mkdir -p "$DOWNLOADS/text"
+	mkdir -p "$DOWNLOADS/pdfs"
+	mkdir -p "$DOWNLOADS/images"
+	mkdir -p "$DOWNLOADS/videos"
+	mkdir -p "$DOWNLOADS/docs"
+	mkdir -p "$DOWNLOADS/audio"
+	mkdir -p "$DOWNLOADS/other"
+}
+
 organize_file() {
 	local FILE="$1"
 	if [[ -d "$FILE" ]]; then
@@ -24,18 +34,20 @@ organize_file() {
 			mv "$FILE" "$DOWNLOADS/pdfs/"
 			;;
 		*.docx)
-			mv "$FILE" "$DOWNLOADS/docx/"
+			mv "$FILE" "$DOWNLOADS/docs/"
 			;;
 		*.mp4|*.mkv|*.mov|*.avi)
 			mv "$FILE" "$DOWNLOADS/videos/"
 			;;
 		*)
-			mv "FILE" "DOWNLOADS/other/"
+			mv "$FILE" "$DOWNLOADS/other/"
 			;;
 	esac
 }
 
 while true; do
+
+	make_directories
 
 	for FILE in "$DOWNLOADS"/*
 	do
