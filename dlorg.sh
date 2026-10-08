@@ -20,7 +20,18 @@ organize_file() {
 		*.mp3|*.wav|*.ogg)
 			mv "$FILE" "$DOWNLOADS/audio/"
 			;;
-
+		*.pdf)
+			mv "$FILE" "$DOWNLOADS/pdfs/"
+			;;
+		*.docx)
+			mv "$FILE" "$DOWNLOADS/docx/"
+			;;
+		*.mp4|*.mkv|*.mov|*.avi)
+			mv "$FILE" "$DOWNLOADS/videos/"
+			;;
+		*)
+			mv "FILE" "DOWNLOADS/other/"
+			;;
 	esac
 }
 
