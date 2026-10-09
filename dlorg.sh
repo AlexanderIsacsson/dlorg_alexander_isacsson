@@ -2,16 +2,6 @@
 
 DOWNLOADS="$HOME/Downloads"
 
-make_directories() {
-	mkdir -p "$DOWNLOADS/text"
-	mkdir -p "$DOWNLOADS/pdfs"
-	mkdir -p "$DOWNLOADS/images"
-	mkdir -p "$DOWNLOADS/videos"
-	mkdir -p "$DOWNLOADS/docs"
-	mkdir -p "$DOWNLOADS/audio"
-	mkdir -p "$DOWNLOADS/other"
-}
-
 organize_file() {
 	local FILE="$1"
 	if [[ -d "$FILE" ]]; then
@@ -20,34 +10,37 @@ organize_file() {
 
 	case "$FILE" in
 		*.txt)
-			mv "$FILE" "$DOWNLOADS/text/"
+			TARGET_DIR="$DOWNLOADS/text/"
 			;;
 
 		*.png|*.jpeg|*.gif|*.jpg)
-			mv "$FILE" "$DOWNLOADS/images/"
+			TARGET_DIR="$DOWNLOADS/images/"
 			;;
 
 		*.mp3|*.wav|*.ogg)
-			mv "$FILE" "$DOWNLOADS/audio/"
+			TARGET_DIR="$DOWNLOADS/audio/"
 			;;
 		*.pdf)
-			mv "$FILE" "$DOWNLOADS/pdfs/"
+			TARGET_DIR="$DOWNLOADS/pdfs/"
 			;;
 		*.docx)
-			mv "$FILE" "$DOWNLOADS/docs/"
+			TARGET_DIR="$DOWNLOADS/docs/"
 			;;
 		*.mp4|*.mkv|*.mov|*.avi)
-			mv "$FILE" "$DOWNLOADS/videos/"
+			TARGET_DIR="$DOWNLOADS/videos/"
 			;;
 		*)
-			mv "$FILE" "$DOWNLOADS/other/"
+			TARGET_DIR="$DOWNLOADS/other/"
 			;;
 	esac
+	mkdir -p "$TARGET_DIR"
+	mv "$FILE" "$TARGET_DIR"
+	echo "moved $FILE to $TARGET_DIR"
 }
 
-while true; do
+echo "watching $DOWNLOADS"
 
-	make_directories
+while true; do
 
 	for FILE in "$DOWNLOADS"/*
 	do
